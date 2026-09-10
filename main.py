@@ -1,7 +1,4 @@
-import tkinter
 import math
-from struct import pack
-import time
 from tkinter import *
 
 # ---------------------------- CONSTANTS ------------------------------- #
@@ -35,13 +32,12 @@ def reset():
 def start_timer():
     global REPS
     global tick_amount
-    global tick
     #Reps time Configuration
     work_sec = 60 * WORK_MIN
     s_break_sec = 60 * SHORT_BREAK_MIN
     l_break_sec = 60 * LONG_BREAK_MIN
 
-#This conditional adds a tick every 1 work session (1 work session = 1 work/25mins and 1 break/5mins
+#This conditional adds a tick every 1 work session (1 work session = 1 work/30mins and 1 break/5mins
     if REPS % 2 == 0 and REPS > 1:
         tick_amount += 1
         Tick_Label.config(text=f"{tick_amount * tick}")
@@ -50,19 +46,19 @@ def start_timer():
     if REPS % 8 == 7:
         count_down(l_break_sec)
         REPS += 1
-        Timer_Label.config(text=f"Break {REPS}", fg="#e7305b")
+        Timer_Label.config(text=f"Break {REPS}", fg=RED)
 
 # Every 2 sessions there's a work session
     elif REPS % 2 == 0:
         count_down(work_sec)
         REPS += 1
-        Timer_Label.config(text=f"Work {REPS}", fg="#9bdeac")
+        Timer_Label.config(text=f"Work {REPS}", fg=GREEN)
 
 # Every other session there's a 5 min break, except for the long breaks
     elif REPS % 2 == 1:
         count_down(s_break_sec)
         REPS += 1
-        Timer_Label.config(text=f"Break {REPS}", fg="#e2979c")
+        Timer_Label.config(text=f"Break {REPS}", fg=PINK)
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 #function that determines clocks countdown functionality
@@ -122,7 +118,7 @@ Start.grid(column= 1, row= 3)
 
 
 #Reset Button
-Start = Button(text="Reset", padx= 1, pady= 0.5, command= reset)
-Start.grid(column= 3, row= 3)
+Reset = Button(text="Reset", padx= 1, pady= 0.5, command= reset)
+Reset.grid(column= 3, row= 3)
 
 window.mainloop()
